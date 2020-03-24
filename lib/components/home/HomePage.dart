@@ -40,11 +40,23 @@ class _HomPageState extends State<HomePage> {
                         TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               ],
             ),
-            Icon(
-              Icons.notifications_none,
+
+            new Container(
+                width: 40.0,
+                height: 40.0,
+                decoration: new BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: new DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage('images/im.jpeg')
+                    )
+                )),
+
+           /* Icon(
+              Icons.filter_list,
               size: 30,
-              color: Colors.blueGrey,
-            ),
+              color: Colors.black54,
+            ),*/
           ],
         ),
         FoodCategory(),

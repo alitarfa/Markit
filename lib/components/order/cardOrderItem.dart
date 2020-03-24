@@ -14,21 +14,19 @@ class _CardOrderItemState extends State<CardOrderItem> {
     return Card(
       elevation: 0,
       child: Container(
-        height: 100,
+        height: 90,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: ClipRRect(
+            ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
-                  height: 100,
-                  width : 85,
+                  height: 75,
+                  width : 75,
                   child: Image.asset("images/im.jpeg", fit: BoxFit.cover),
                 ),
               ),
-            ),
+
             Expanded(
               child: Padding(
                 padding: EdgeInsets.only(left: 16),
@@ -38,8 +36,8 @@ class _CardOrderItemState extends State<CardOrderItem> {
             ),
             Container(
                 margin: EdgeInsets.only(right: 16),
-                width: 45,
-                height: 90,
+                width: 40,
+                height: 75,
                 decoration: BoxDecoration(
                   border: Border.all(color: Color(0xFFD3D3D3), width: 1.0),
                   borderRadius: BorderRadius.circular(10.0),
@@ -51,7 +49,7 @@ class _CardOrderItemState extends State<CardOrderItem> {
                     children: <Widget>[
                       InkWell(
                           onTap: () {},
-                          child: Icon(Icons.keyboard_arrow_up,size: 28,
+                          child: Icon(Icons.keyboard_arrow_up,
                               color: Color(0xFFD3D3D3))),
                       Text(
                         "0",
@@ -59,7 +57,7 @@ class _CardOrderItemState extends State<CardOrderItem> {
                       ),
                       InkWell(
                           onTap: () {},
-                          child: Icon(Icons.keyboard_arrow_down,size: 28,
+                          child: Icon(Icons.keyboard_arrow_down,
                               color: Color(0xFFD3D3D3))),
                     ],
                   ),

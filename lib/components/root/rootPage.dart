@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:e_commerce_flutter/components/home/HomePage.dart';
 import 'package:e_commerce_flutter/components/listFood/foodCardItem.dart';
 import 'package:e_commerce_flutter/components/notifcation/notification.dart';
@@ -12,11 +13,9 @@ class RootPage extends StatefulWidget {
     // TODO: implement createState
     return RootPageState();
   }
-
 }
 
 class RootPageState extends State<RootPage> {
-
   int _index = 0;
   Widget currentPage;
   HomePage homePage;
@@ -63,23 +62,31 @@ class RootPageState extends State<RootPage> {
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    color: Colors.grey,
                   ),
                   title: Text("Home")),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart, color: Colors.grey),
+                  icon: Icon(Icons.category, color: Colors.grey),
+                  title: Text("Category")),
+              BottomNavigationBarItem(
+                  icon: Badge(
+                    badgeContent: Text(
+                      '3',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: Icon(Icons.shopping_cart),
+                  ),
                   title: Text("Order")),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.notifications, color: Colors.grey),
+                  icon: Badge(
+                    badgeContent:
+                        Text('3', style: TextStyle(color: Colors.white)),
+                    child: Icon(Icons.notifications),
+                  ),
                   title: Text("Notification")),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle, color: Colors.grey),
-                  title: Text("Profile")),
             ],
           ),
         ),
-        body: currentPage
-    );
+        body: currentPage);
   }
 
   Widget _builderItemFood() {
@@ -88,5 +95,4 @@ class RootPageState extends State<RootPage> {
       child: FoodCardItem(),
     );
   }
-
 }
