@@ -18,8 +18,7 @@ class _FoodCategoryState extends State<FoodCategory> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      height: 70,
-      width: 150,
+      height: 160,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: _category.length,

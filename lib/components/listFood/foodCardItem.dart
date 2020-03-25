@@ -1,14 +1,22 @@
+import 'package:e_commerce_flutter/models/food.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FoodCardItem extends StatefulWidget {
+  Food food;
+  FoodCardItem(this.food);
+
   @override
   State<StatefulWidget> createState() {
-    return _FoodCardItemState();
+    return _FoodCardItemState(food);
   }
 }
 
 class _FoodCardItemState extends State<FoodCardItem> {
+
+  Food food;
+  _FoodCardItemState(this.food);
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(

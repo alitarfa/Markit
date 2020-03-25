@@ -1,6 +1,5 @@
 import 'package:badges/badges.dart';
 import 'package:e_commerce_flutter/components/home/HomePage.dart';
-import 'package:e_commerce_flutter/components/listFood/foodCardItem.dart';
 import 'package:e_commerce_flutter/components/notifcation/notification.dart';
 import 'package:e_commerce_flutter/components/order/order.dart';
 import 'package:e_commerce_flutter/components/profile/profile.dart';
@@ -35,13 +34,6 @@ class RootPageState extends State<RootPage> {
     this.currentPage = this.homePage;
   }
 
-  _onClickTab(int index) {
-    setState(() {
-      _index = index;
-      currentPage = listPagesOfTabs[index];
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,9 +56,9 @@ class RootPageState extends State<RootPage> {
                     Icons.home,
                   ),
                   title: Text("Home")),
-              BottomNavigationBarItem(
+             /* BottomNavigationBarItem(
                   icon: Icon(Icons.category, color: Colors.grey),
-                  title: Text("Category")),
+                  title: Text("Category")),*/
               BottomNavigationBarItem(
                   icon: Badge(
                     badgeContent: Text(
@@ -89,10 +81,5 @@ class RootPageState extends State<RootPage> {
         body: currentPage);
   }
 
-  Widget _builderItemFood() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 20),
-      child: FoodCardItem(),
-    );
-  }
+
 }

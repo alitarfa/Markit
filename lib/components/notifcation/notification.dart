@@ -14,9 +14,30 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Notification")),
+
       body: ListView(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
         children: <Widget>[
+          SizedBox(
+            height: 50,
+          ),
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "My",
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                ),
+                Text("Notifications",
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold))
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+
           CardItemNotification(),
           CardItemNotification(),
           CardItemNotification(),

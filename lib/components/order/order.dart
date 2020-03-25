@@ -29,7 +29,7 @@ class _OrderPageState extends State<OrderPage> {
                   "My",
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
-                Text("Order",
+                Text("Orders",
                     style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold))
               ],
             ),
@@ -47,23 +47,21 @@ class _OrderPageState extends State<OrderPage> {
           CardOrderItem(),
           CardOrderItem(),
           CardOrderItem(),
+          _buildTotalContainer()
         ],
       ),
-      bottomNavigationBar: _buildTotalContainer(),
     );
   }
 
   Widget _buildTotalContainer() {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 10),
-      child: Material(
+    return  Material(
         elevation: 4,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(12),
         child: Container(
           height: 150.0,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
+
             children: <Widget>[
               SizedBox(
                 height: 16.0,
@@ -111,9 +109,10 @@ class _OrderPageState extends State<OrderPage> {
                     width: 130,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.only(
+                     /* borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(12),
-                          bottomLeft: Radius.circular(12)),
+                          bottomLeft: Radius.circular(12)),*/
+                     borderRadius: BorderRadius.circular(12)
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +139,6 @@ class _OrderPageState extends State<OrderPage> {
             ],
           ),
         ),
-      ),
     );
   }
 }

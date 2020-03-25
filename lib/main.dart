@@ -1,4 +1,4 @@
-import 'package:e_commerce_flutter/components/store/storePage.dart';
+import 'package:e_commerce_flutter/components/authentication/login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +13,7 @@ class Main extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: StorePage(),
+      home: LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }
