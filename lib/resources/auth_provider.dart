@@ -9,10 +9,10 @@ class AuthenticationProvider {
   Map<String, String> headers = {"Content-type": "application/json"};
   String json = '{"title": "Hello", "body": "body text", "userId": 1}';
 
-
   // todo in this line check the cast
   Future<SignInAuth> signIn(String userName, String password) async {
     SignInAuth response = (await client.post(URL_AUTH,
         headers: headers, body: new SignInRequest(userName, password))) as SignInAuth;
   }
+
 }

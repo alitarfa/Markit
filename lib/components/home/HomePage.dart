@@ -57,11 +57,6 @@ class _HomPageState extends State<HomePage> {
               },
             )
 
-            /* Icon(
-              Icons.filter_list,
-              size: 30,
-              color: Colors.black54,
-            ),*/
           ],
         ),
         Addresses(),
