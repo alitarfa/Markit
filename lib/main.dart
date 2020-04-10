@@ -1,38 +1,49 @@
-import 'package:e_commerce_flutter/blocs/ListRestaurantBloc.dart';
-import 'package:e_commerce_flutter/models/RestaurantMode.dart';
+import 'package:chopper/chopper.dart';
+import 'package:e_commerce_flutter/bloc/home_bloc.dart';
+import 'package:e_commerce_flutter/shopper/ServiceApi.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(Main());
 
 class Main extends StatelessWidget {
-  RestaurantListBloc blocResta = new RestaurantListBloc();
-
   @override
   Widget build(BuildContext context) {
-    blocResta.fetchLondonWeather();
+    return Provider(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Scaffold(
+            body: BlocProvider<RestaurantBloc>(
+          create: (context) =>
+              RestaurantBloc()..add(GetRestaurantsEvent(context: context)),
+          child: BlocListener<RestaurantBloc, RestaurantState>(
+              listener: (context, state) {
+            print(state);
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        body: StreamBuilder(
-            stream: blocResta.listRestaurant,
-            builder: (context, AsyncSnapshot<List<RestaurantModel>> snapshot) {
-              if (snapshot.hasData) {
-                return Container(
-                  child: Text(snapshot.data.length.toString()),
-                );
-              } else if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
+            if (state is RestaurantSuccess) {
+              print("we are here Now we did it");
+              print(state.results.length);
+            }
 
-              return Center(child: CircularProgressIndicator());
-            }),
+            Container(
+              child: Text("we are"),
+            );
+          }, child: BlocBuilder<RestaurantBloc, RestaurantState>(
+            builder: (context, state) {
+              return Text("Hi ");
+            },
+          )),
+        )),
+        debugShowCheckedModeBanner: false,
       ),
-      debugShowCheckedModeBanner: false,
+
+      create: (_)=> ServiceApi.create(),
+      dispose: (_,ServiceApi serviceApi)=> serviceApi.client.dispose(),
     );
   }
 }
