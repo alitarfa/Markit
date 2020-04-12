@@ -1,6 +1,6 @@
 
 
-import 'package:e_commerce_flutter/models/user.dart';
+import 'package:e_commerce_flutter/models/user/user.dart';
 
 class SignInAuth {
   int code;

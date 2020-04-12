@@ -1,4 +1,4 @@
-part of 'home_bloc.dart';
+part of 'restaurant_bloc.dart';
 
 abstract class RestaurantState extends Equatable {
   const RestaurantState();

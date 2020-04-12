@@ -27,30 +27,31 @@ class _$MenuSerializer implements StructuredSerializer<Menu> {
           specifiedType: const FullType(String)),
       'basePrice',
       serializers.serialize(object.basePrice,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(double)),
       'tags',
       serializers.serialize(object.tags,
-          specifiedType: const FullType(List, const [const FullType(String)])),
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
       'ingredient',
       serializers.serialize(object.ingredient,
-          specifiedType: const FullType(List, const [const FullType(String)])),
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(String)])),
       'preparationTime',
       serializers.serialize(object.preparationTime,
-          specifiedType: const FullType(String)),
+          specifiedType: const FullType(int)),
       'rating',
-      serializers.serialize(object.rating,
-          specifiedType: const FullType(String)),
+      serializers.serialize(object.rating, specifiedType: const FullType(int)),
       'avgDelivery',
       serializers.serialize(object.avgDelivery,
-          specifiedType: const FullType(String)),
-      'dishImages',
-      serializers.serialize(object.dishImages,
-          specifiedType: const FullType(List, const [const FullType(String)])),
-      'optionDishes',
-      serializers.serialize(object.optionDishes,
-          specifiedType: const FullType(OptionDishes)),
+          specifiedType: const FullType(int)),
     ];
-
+    if (object.dishImages != null) {
+      result
+        ..add('dishImages')
+        ..add(serializers.serialize(object.dishImages,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     return result;
   }
 
@@ -79,41 +80,37 @@ class _$MenuSerializer implements StructuredSerializer<Menu> {
           break;
         case 'basePrice':
           result.basePrice = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(double)) as double;
           break;
         case 'tags':
-          result.tags = serializers.deserialize(value,
+          result.tags.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(List, const [const FullType(String)]))
-              as List<String>;
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<dynamic>);
           break;
         case 'ingredient':
-          result.ingredient = serializers.deserialize(value,
+          result.ingredient.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(List, const [const FullType(String)]))
-              as List<String>;
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<dynamic>);
           break;
         case 'preparationTime':
           result.preparationTime = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'rating':
           result.rating = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'avgDelivery':
           result.avgDelivery = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(int)) as int;
           break;
         case 'dishImages':
-          result.dishImages = serializers.deserialize(value,
+          result.dishImages.replace(serializers.deserialize(value,
                   specifiedType:
-                      const FullType(List, const [const FullType(String)]))
-              as List<String>;
-          break;
-        case 'optionDishes':
-          result.optionDishes.replace(serializers.deserialize(value,
-              specifiedType: const FullType(OptionDishes)) as OptionDishes);
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<dynamic>);
           break;
       }
     }
@@ -130,21 +127,19 @@ class _$Menu extends Menu {
   @override
   final String description;
   @override
-  final String basePrice;
+  final double basePrice;
   @override
-  final List<String> tags;
+  final BuiltList<String> tags;
   @override
-  final List<String> ingredient;
+  final BuiltList<String> ingredient;
   @override
-  final String preparationTime;
+  final int preparationTime;
   @override
-  final String rating;
+  final int rating;
   @override
-  final String avgDelivery;
+  final int avgDelivery;
   @override
-  final List<String> dishImages;
-  @override
-  final OptionDishes optionDishes;
+  final BuiltList<String> dishImages;
 
   factory _$Menu([void Function(MenuBuilder) updates]) =>
       (new MenuBuilder()..update(updates)).build();
@@ -159,8 +154,7 @@ class _$Menu extends Menu {
       this.preparationTime,
       this.rating,
       this.avgDelivery,
-      this.dishImages,
-      this.optionDishes})
+      this.dishImages})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('Menu', 'id');
@@ -189,12 +183,6 @@ class _$Menu extends Menu {
     if (avgDelivery == null) {
       throw new BuiltValueNullFieldError('Menu', 'avgDelivery');
     }
-    if (dishImages == null) {
-      throw new BuiltValueNullFieldError('Menu', 'dishImages');
-    }
-    if (optionDishes == null) {
-      throw new BuiltValueNullFieldError('Menu', 'optionDishes');
-    }
   }
 
   @override
@@ -217,8 +205,7 @@ class _$Menu extends Menu {
         preparationTime == other.preparationTime &&
         rating == other.rating &&
         avgDelivery == other.avgDelivery &&
-        dishImages == other.dishImages &&
-        optionDishes == other.optionDishes;
+        dishImages == other.dishImages;
   }
 
   @override
@@ -230,17 +217,15 @@ class _$Menu extends Menu {
                     $jc(
                         $jc(
                             $jc(
-                                $jc(
-                                    $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                        description.hashCode),
-                                    basePrice.hashCode),
-                                tags.hashCode),
-                            ingredient.hashCode),
-                        preparationTime.hashCode),
-                    rating.hashCode),
-                avgDelivery.hashCode),
-            dishImages.hashCode),
-        optionDishes.hashCode));
+                                $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                    description.hashCode),
+                                basePrice.hashCode),
+                            tags.hashCode),
+                        ingredient.hashCode),
+                    preparationTime.hashCode),
+                rating.hashCode),
+            avgDelivery.hashCode),
+        dishImages.hashCode));
   }
 
   @override
@@ -255,8 +240,7 @@ class _$Menu extends Menu {
           ..add('preparationTime', preparationTime)
           ..add('rating', rating)
           ..add('avgDelivery', avgDelivery)
-          ..add('dishImages', dishImages)
-          ..add('optionDishes', optionDishes))
+          ..add('dishImages', dishImages))
         .toString();
   }
 }
@@ -276,40 +260,38 @@ class MenuBuilder implements Builder<Menu, MenuBuilder> {
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
 
-  String _basePrice;
-  String get basePrice => _$this._basePrice;
-  set basePrice(String basePrice) => _$this._basePrice = basePrice;
+  double _basePrice;
+  double get basePrice => _$this._basePrice;
+  set basePrice(double basePrice) => _$this._basePrice = basePrice;
 
-  List<String> _tags;
-  List<String> get tags => _$this._tags;
-  set tags(List<String> tags) => _$this._tags = tags;
+  ListBuilder<String> _tags;
+  ListBuilder<String> get tags => _$this._tags ??= new ListBuilder<String>();
+  set tags(ListBuilder<String> tags) => _$this._tags = tags;
 
-  List<String> _ingredient;
-  List<String> get ingredient => _$this._ingredient;
-  set ingredient(List<String> ingredient) => _$this._ingredient = ingredient;
+  ListBuilder<String> _ingredient;
+  ListBuilder<String> get ingredient =>
+      _$this._ingredient ??= new ListBuilder<String>();
+  set ingredient(ListBuilder<String> ingredient) =>
+      _$this._ingredient = ingredient;
 
-  String _preparationTime;
-  String get preparationTime => _$this._preparationTime;
-  set preparationTime(String preparationTime) =>
+  int _preparationTime;
+  int get preparationTime => _$this._preparationTime;
+  set preparationTime(int preparationTime) =>
       _$this._preparationTime = preparationTime;
 
-  String _rating;
-  String get rating => _$this._rating;
-  set rating(String rating) => _$this._rating = rating;
+  int _rating;
+  int get rating => _$this._rating;
+  set rating(int rating) => _$this._rating = rating;
 
-  String _avgDelivery;
-  String get avgDelivery => _$this._avgDelivery;
-  set avgDelivery(String avgDelivery) => _$this._avgDelivery = avgDelivery;
+  int _avgDelivery;
+  int get avgDelivery => _$this._avgDelivery;
+  set avgDelivery(int avgDelivery) => _$this._avgDelivery = avgDelivery;
 
-  List<String> _dishImages;
-  List<String> get dishImages => _$this._dishImages;
-  set dishImages(List<String> dishImages) => _$this._dishImages = dishImages;
-
-  OptionDishesBuilder _optionDishes;
-  OptionDishesBuilder get optionDishes =>
-      _$this._optionDishes ??= new OptionDishesBuilder();
-  set optionDishes(OptionDishesBuilder optionDishes) =>
-      _$this._optionDishes = optionDishes;
+  ListBuilder<String> _dishImages;
+  ListBuilder<String> get dishImages =>
+      _$this._dishImages ??= new ListBuilder<String>();
+  set dishImages(ListBuilder<String> dishImages) =>
+      _$this._dishImages = dishImages;
 
   MenuBuilder();
 
@@ -319,13 +301,12 @@ class MenuBuilder implements Builder<Menu, MenuBuilder> {
       _name = _$v.name;
       _description = _$v.description;
       _basePrice = _$v.basePrice;
-      _tags = _$v.tags;
-      _ingredient = _$v.ingredient;
+      _tags = _$v.tags?.toBuilder();
+      _ingredient = _$v.ingredient?.toBuilder();
       _preparationTime = _$v.preparationTime;
       _rating = _$v.rating;
       _avgDelivery = _$v.avgDelivery;
-      _dishImages = _$v.dishImages;
-      _optionDishes = _$v.optionDishes?.toBuilder();
+      _dishImages = _$v.dishImages?.toBuilder();
       _$v = null;
     }
     return this;
@@ -354,18 +335,22 @@ class MenuBuilder implements Builder<Menu, MenuBuilder> {
               name: name,
               description: description,
               basePrice: basePrice,
-              tags: tags,
-              ingredient: ingredient,
+              tags: tags.build(),
+              ingredient: ingredient.build(),
               preparationTime: preparationTime,
               rating: rating,
               avgDelivery: avgDelivery,
-              dishImages: dishImages,
-              optionDishes: optionDishes.build());
+              dishImages: _dishImages?.build());
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'optionDishes';
-        optionDishes.build();
+        _$failedField = 'tags';
+        tags.build();
+        _$failedField = 'ingredient';
+        ingredient.build();
+
+        _$failedField = 'dishImages';
+        _dishImages?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Menu', _$failedField, e.toString());

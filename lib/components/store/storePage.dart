@@ -2,10 +2,15 @@ import 'package:e_commerce_flutter/components/foodCategory/foodCategory.dart';
 import 'package:e_commerce_flutter/components/listFood/foodCardItem.dart';
 import 'package:e_commerce_flutter/components/storeDishes/storeDishes.dart';
 import 'package:e_commerce_flutter/models/food.dart';
+import 'package:e_commerce_flutter/models/restaurant/restaurant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StorePage extends StatefulWidget {
+  Restaurant _restaurant;
+
+  StorePage(this._restaurant);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -14,12 +19,7 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  List<Food> _listItemFood = [
-    Food("", 1, ""),
-    Food("", 1, ""),
-    Food("", 1, ""),
-    Food("", 1, "")
-  ];
+  List<Food> _listItemFood = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +34,24 @@ class _StorePageState extends State<StorePage> {
                 pinned: false,
                 flexibleSpace: FlexibleSpaceBar(
                     centerTitle: true,
-                    title: Text("Farha Restuarant",
+                    title: Text(widget._restaurant.name,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16.0,
                         )),
-                    background: Image.asset(
-                      "images/im.jpeg",
+                    background: Image.network(
+                      widget._restaurant.imageProfile,
                       fit: BoxFit.cover,
                     )),
               ),
             ];
           },
+
           body: ListView(
             padding: EdgeInsets.only(top: 16, left: 20, right: 20),
             children: <Widget>[
               SizedBox(height: 16),
-              StoreDishes(),
+              StoreDishes(widget._restaurant.categories.toList()),
               SizedBox(height: 20),
               Column(
                 children: _listItemFood.map((Food food) {

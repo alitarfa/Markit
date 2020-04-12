@@ -6,10 +6,16 @@ import 'package:built_collection/built_collection.dart';
 part 'category.g.dart';
 
 abstract class Category implements Built<Category,CategoryBuilder>{
+
+  @nullable
   String get name;
-  String get imagePath;
+  @nullable
+  String get image;
+  @nullable
   String get restaurantID;
+  @nullable
   BuiltList<Menu> get menus;
+
 
   Category._();
 

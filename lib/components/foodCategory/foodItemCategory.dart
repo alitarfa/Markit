@@ -1,41 +1,28 @@
 import 'package:e_commerce_flutter/components/store/storePage.dart';
 import 'package:e_commerce_flutter/components/storeDishes/storeDishes.dart';
+import 'package:e_commerce_flutter/models/restaurant/restaurant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FoodItemCategory extends StatefulWidget {
+  Restaurant restaurant;
+
+  FoodItemCategory(this.restaurant);
+
   @override
   State<StatefulWidget> createState() {
-    return _FoodItemCategoryState();
+    return _FoodItemCategoryState(restaurant);
   }
 }
 
 class _FoodItemCategoryState extends State<FoodItemCategory> {
+  Restaurant restaurant;
+
+  _FoodItemCategoryState(this.restaurant);
+
   @override
   Widget build(BuildContext context) {
-    return /* Padding(
-        padding: EdgeInsets.all(4),
-        child: Container(
-          width: 110,
-          child: Card(
-              child: Padding(
-                padding: EdgeInsets.all(3),
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset("images/pizza.png"),
-                      SizedBox(width: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[Text("Name"), Text("price")],
-                      )
-                    ],
-                  ),
-              )
-          ),
-        ));*/
-
-        InkWell(
+    return InkWell(
       child: Padding(
           padding: EdgeInsets.all(4),
           child: Container(
@@ -69,17 +56,18 @@ class _FoodItemCategoryState extends State<FoodItemCategory> {
                             shape: BoxShape.circle,
                             image: new DecorationImage(
                                 fit: BoxFit.fill,
-                                image: AssetImage('images/im.jpeg')))),
+                                image: NetworkImage(
+                                    widget.restaurant.imageProfile)))),
                   ),
                   SizedBox(height: 16),
-                  Text("Pizza")
+                  Text(widget.restaurant.name)
                 ],
               ),
             )),
           )),
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => StorePage()));
+            context, MaterialPageRoute(builder: (context) => StorePage(restaurant)));
       },
     );
   }

@@ -1,7 +1,10 @@
+import 'package:e_commerce_flutter/bloc/authentication/auth_bloc.dart';
 import 'package:e_commerce_flutter/components/authentication/register/register.dart';
 import 'package:e_commerce_flutter/components/root/rootPage.dart';
 import 'package:e_commerce_flutter/components/widget/bezierContainer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -218,58 +221,73 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Container(
-      height: MediaQuery.of(context).size.height,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: SizedBox(),
-                ),
-                SizedBox(height: 55),
-                _title(),
-                SizedBox(
-                  height: 50,
-                ),
-                _emailPasswordWidget(),
-                SizedBox(
-                  height: 20,
-                ),
-                _submitButton(),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  alignment: Alignment.centerRight,
-                  child: Text('Forgot Password ?',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                ),
-                _divider(),
-                _facebookButton(),
-                Expanded(
-                  flex: 2,
-                  child: SizedBox(),
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _createAccountLabel(),
-          ),
-          //Positioned(top: 40, left: 0, child: _backButton()),
-          Positioned(
-              top: -MediaQuery.of(context).size.height * .15,
-              right: -MediaQuery.of(context).size.width * .4,
-              child: BezierContainer())
-        ],
-      ),
-    )));
+        body: BlocProvider<AuthBloc>(
+            create: (BuildContext context) => AuthBloc(),
+            child: BlocListener<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is DoLoginSuccessState) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RootPage()));
+                }
+              },
+              child: BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  return SingleChildScrollView(
+                      child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                flex: 3,
+                                child: SizedBox(),
+                              ),
+                              SizedBox(height: 55),
+                              _title(),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              _emailPasswordWidget(),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              _submitButton(),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 10),
+                                alignment: Alignment.centerRight,
+                                child: Text('Forgot Password ?',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500)),
+                              ),
+                              _divider(),
+                              _facebookButton(),
+                              Expanded(
+                                flex: 2,
+                                child: SizedBox(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: _createAccountLabel(),
+                        ),
+                        //Positioned(top: 40, left: 0, child: _backButton()),
+                        Positioned(
+                            top: -MediaQuery.of(context).size.height * .15,
+                            right: -MediaQuery.of(context).size.width * .4,
+                            child: BezierContainer())
+                      ],
+                    ),
+                  ));
+                },
+              ),
+            )));
   }
 }

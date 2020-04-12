@@ -17,21 +17,32 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
   @override
   Iterable<Object> serialize(Serializers serializers, Category object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'imagePath',
-      serializers.serialize(object.imagePath,
-          specifiedType: const FullType(String)),
-      'restaurantID',
-      serializers.serialize(object.restaurantID,
-          specifiedType: const FullType(String)),
-      'menus',
-      serializers.serialize(object.menus,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(Menu)])),
-    ];
-
+    final result = <Object>[];
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.image != null) {
+      result
+        ..add('image')
+        ..add(serializers.serialize(object.image,
+            specifiedType: const FullType(String)));
+    }
+    if (object.restaurantID != null) {
+      result
+        ..add('restaurantID')
+        ..add(serializers.serialize(object.restaurantID,
+            specifiedType: const FullType(String)));
+    }
+    if (object.menus != null) {
+      result
+        ..add('menus')
+        ..add(serializers.serialize(object.menus,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Menu)])));
+    }
     return result;
   }
 
@@ -50,8 +61,8 @@ class _$CategorySerializer implements StructuredSerializer<Category> {
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'imagePath':
-          result.imagePath = serializers.deserialize(value,
+        case 'image':
+          result.image = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'restaurantID':
@@ -75,7 +86,7 @@ class _$Category extends Category {
   @override
   final String name;
   @override
-  final String imagePath;
+  final String image;
   @override
   final String restaurantID;
   @override
@@ -84,21 +95,8 @@ class _$Category extends Category {
   factory _$Category([void Function(CategoryBuilder) updates]) =>
       (new CategoryBuilder()..update(updates)).build();
 
-  _$Category._({this.name, this.imagePath, this.restaurantID, this.menus})
-      : super._() {
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Category', 'name');
-    }
-    if (imagePath == null) {
-      throw new BuiltValueNullFieldError('Category', 'imagePath');
-    }
-    if (restaurantID == null) {
-      throw new BuiltValueNullFieldError('Category', 'restaurantID');
-    }
-    if (menus == null) {
-      throw new BuiltValueNullFieldError('Category', 'menus');
-    }
-  }
+  _$Category._({this.name, this.image, this.restaurantID, this.menus})
+      : super._();
 
   @override
   Category rebuild(void Function(CategoryBuilder) updates) =>
@@ -112,7 +110,7 @@ class _$Category extends Category {
     if (identical(other, this)) return true;
     return other is Category &&
         name == other.name &&
-        imagePath == other.imagePath &&
+        image == other.image &&
         restaurantID == other.restaurantID &&
         menus == other.menus;
   }
@@ -120,8 +118,7 @@ class _$Category extends Category {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, name.hashCode), imagePath.hashCode),
-            restaurantID.hashCode),
+        $jc($jc($jc(0, name.hashCode), image.hashCode), restaurantID.hashCode),
         menus.hashCode));
   }
 
@@ -129,7 +126,7 @@ class _$Category extends Category {
   String toString() {
     return (newBuiltValueToStringHelper('Category')
           ..add('name', name)
-          ..add('imagePath', imagePath)
+          ..add('image', image)
           ..add('restaurantID', restaurantID)
           ..add('menus', menus))
         .toString();
@@ -143,9 +140,9 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
 
-  String _imagePath;
-  String get imagePath => _$this._imagePath;
-  set imagePath(String imagePath) => _$this._imagePath = imagePath;
+  String _image;
+  String get image => _$this._image;
+  set image(String image) => _$this._image = image;
 
   String _restaurantID;
   String get restaurantID => _$this._restaurantID;
@@ -160,7 +157,7 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
   CategoryBuilder get _$this {
     if (_$v != null) {
       _name = _$v.name;
-      _imagePath = _$v.imagePath;
+      _image = _$v.image;
       _restaurantID = _$v.restaurantID;
       _menus = _$v.menus?.toBuilder();
       _$v = null;
@@ -188,14 +185,14 @@ class CategoryBuilder implements Builder<Category, CategoryBuilder> {
       _$result = _$v ??
           new _$Category._(
               name: name,
-              imagePath: imagePath,
+              image: image,
               restaurantID: restaurantID,
-              menus: menus.build());
+              menus: _menus?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'menus';
-        menus.build();
+        _menus?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Category', _$failedField, e.toString());

@@ -17,35 +17,68 @@ class _$RestaurantSerializer implements StructuredSerializer<Restaurant> {
   @override
   Iterable<Object> serialize(Serializers serializers, Restaurant object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
-      'name',
-      serializers.serialize(object.name, specifiedType: const FullType(String)),
-      'description',
-      serializers.serialize(object.description,
-          specifiedType: const FullType(String)),
-      'address',
-      serializers.serialize(object.address,
-          specifiedType: const FullType(String)),
-      'imageProfile',
-      serializers.serialize(object.imageProfile,
-          specifiedType: const FullType(String)),
-      'numberPhone',
-      serializers.serialize(object.numberPhone,
-          specifiedType: const FullType(String)),
-      'available',
-      serializers.serialize(object.available,
-          specifiedType: const FullType(bool)),
-      'coordinates',
-      serializers.serialize(object.coordinates,
-          specifiedType: const FullType(Coordinate)),
-      'categories',
-      serializers.serialize(object.categories,
-          specifiedType:
-              const FullType(List, const [const FullType(Category)])),
-    ];
-
+    final result = <Object>[];
+    if (object.id != null) {
+      result
+        ..add('id')
+        ..add(serializers.serialize(object.id,
+            specifiedType: const FullType(String)));
+    }
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    if (object.description != null) {
+      result
+        ..add('description')
+        ..add(serializers.serialize(object.description,
+            specifiedType: const FullType(String)));
+    }
+    if (object.address != null) {
+      result
+        ..add('address')
+        ..add(serializers.serialize(object.address,
+            specifiedType: const FullType(String)));
+    }
+    if (object.imageProfile != null) {
+      result
+        ..add('imageProfile')
+        ..add(serializers.serialize(object.imageProfile,
+            specifiedType: const FullType(String)));
+    }
+    if (object.numberPhone != null) {
+      result
+        ..add('numberPhone')
+        ..add(serializers.serialize(object.numberPhone,
+            specifiedType: const FullType(String)));
+    }
+    if (object.available != null) {
+      result
+        ..add('available')
+        ..add(serializers.serialize(object.available,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.coordinates != null) {
+      result
+        ..add('coordinates')
+        ..add(serializers.serialize(object.coordinates,
+            specifiedType: const FullType(Coordinate)));
+    }
+    if (object.categories != null) {
+      result
+        ..add('categories')
+        ..add(serializers.serialize(object.categories,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Category)])));
+    }
+    if (object.location != null) {
+      result
+        ..add('location')
+        ..add(serializers.serialize(object.location,
+            specifiedType: const FullType(Location)));
+    }
     return result;
   }
 
@@ -93,10 +126,14 @@ class _$RestaurantSerializer implements StructuredSerializer<Restaurant> {
               specifiedType: const FullType(Coordinate)) as Coordinate);
           break;
         case 'categories':
-          result.categories = serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(List, const [const FullType(Category)]))
-              as List<Category>;
+          result.categories.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(Category)]))
+              as BuiltList<dynamic>);
+          break;
+        case 'location':
+          result.location.replace(serializers.deserialize(value,
+              specifiedType: const FullType(Location)) as Location);
           break;
       }
     }
@@ -123,7 +160,9 @@ class _$Restaurant extends Restaurant {
   @override
   final Coordinate coordinates;
   @override
-  final List<Category> categories;
+  final BuiltList<Category> categories;
+  @override
+  final Location location;
 
   factory _$Restaurant([void Function(RestaurantBuilder) updates]) =>
       (new RestaurantBuilder()..update(updates)).build();
@@ -137,36 +176,9 @@ class _$Restaurant extends Restaurant {
       this.numberPhone,
       this.available,
       this.coordinates,
-      this.categories})
-      : super._() {
-    if (id == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'id');
-    }
-    if (name == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'name');
-    }
-    if (description == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'description');
-    }
-    if (address == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'address');
-    }
-    if (imageProfile == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'imageProfile');
-    }
-    if (numberPhone == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'numberPhone');
-    }
-    if (available == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'available');
-    }
-    if (coordinates == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'coordinates');
-    }
-    if (categories == null) {
-      throw new BuiltValueNullFieldError('Restaurant', 'categories');
-    }
-  }
+      this.categories,
+      this.location})
+      : super._();
 
   @override
   Restaurant rebuild(void Function(RestaurantBuilder) updates) =>
@@ -187,7 +199,8 @@ class _$Restaurant extends Restaurant {
         numberPhone == other.numberPhone &&
         available == other.available &&
         coordinates == other.coordinates &&
-        categories == other.categories;
+        categories == other.categories &&
+        location == other.location;
   }
 
   @override
@@ -198,14 +211,16 @@ class _$Restaurant extends Restaurant {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, id.hashCode), name.hashCode),
-                                description.hashCode),
-                            address.hashCode),
-                        imageProfile.hashCode),
-                    numberPhone.hashCode),
-                available.hashCode),
-            coordinates.hashCode),
-        categories.hashCode));
+                            $jc(
+                                $jc($jc($jc(0, id.hashCode), name.hashCode),
+                                    description.hashCode),
+                                address.hashCode),
+                            imageProfile.hashCode),
+                        numberPhone.hashCode),
+                    available.hashCode),
+                coordinates.hashCode),
+            categories.hashCode),
+        location.hashCode));
   }
 
   @override
@@ -219,7 +234,8 @@ class _$Restaurant extends Restaurant {
           ..add('numberPhone', numberPhone)
           ..add('available', available)
           ..add('coordinates', coordinates)
-          ..add('categories', categories))
+          ..add('categories', categories)
+          ..add('location', location))
         .toString();
   }
 }
@@ -261,9 +277,15 @@ class RestaurantBuilder implements Builder<Restaurant, RestaurantBuilder> {
   set coordinates(CoordinateBuilder coordinates) =>
       _$this._coordinates = coordinates;
 
-  List<Category> _categories;
-  List<Category> get categories => _$this._categories;
-  set categories(List<Category> categories) => _$this._categories = categories;
+  ListBuilder<Category> _categories;
+  ListBuilder<Category> get categories =>
+      _$this._categories ??= new ListBuilder<Category>();
+  set categories(ListBuilder<Category> categories) =>
+      _$this._categories = categories;
+
+  LocationBuilder _location;
+  LocationBuilder get location => _$this._location ??= new LocationBuilder();
+  set location(LocationBuilder location) => _$this._location = location;
 
   RestaurantBuilder();
 
@@ -277,7 +299,8 @@ class RestaurantBuilder implements Builder<Restaurant, RestaurantBuilder> {
       _numberPhone = _$v.numberPhone;
       _available = _$v.available;
       _coordinates = _$v.coordinates?.toBuilder();
-      _categories = _$v.categories;
+      _categories = _$v.categories?.toBuilder();
+      _location = _$v.location?.toBuilder();
       _$v = null;
     }
     return this;
@@ -309,13 +332,18 @@ class RestaurantBuilder implements Builder<Restaurant, RestaurantBuilder> {
               imageProfile: imageProfile,
               numberPhone: numberPhone,
               available: available,
-              coordinates: coordinates.build(),
-              categories: categories);
+              coordinates: _coordinates?.build(),
+              categories: _categories?.build(),
+              location: _location?.build());
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'coordinates';
-        coordinates.build();
+        _coordinates?.build();
+        _$failedField = 'categories';
+        _categories?.build();
+        _$failedField = 'location';
+        _location?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Restaurant', _$failedField, e.toString());

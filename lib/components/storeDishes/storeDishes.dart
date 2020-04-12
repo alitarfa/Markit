@@ -1,18 +1,25 @@
-import 'package:e_commerce_flutter/models/category.dart';
+import 'package:built_collection/src/list.dart';
+import 'package:e_commerce_flutter/models/restaurant/category.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'storeDishesItem.dart';
 
 class StoreDishes extends StatefulWidget {
+  List<Category> categories;
+
+  StoreDishes(this.categories);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return _StoreDishesState();
+    return _StoreDishesState(categories);
   }
 }
 
 class _StoreDishesState extends State<StoreDishes> {
-  List<Category> _category = [new Category("", 1, ""),new Category("", 1, ""),new Category("", 1, ""),new Category("", 1, ""),new Category("", 1, "")];
+  List<Category> categories;
+
+  _StoreDishesState(this.categories);
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +28,9 @@ class _StoreDishesState extends State<StoreDishes> {
       height: 160,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: _category.length,
+          itemCount: categories.length,
           itemBuilder: (BuildContext context, int index) {
-            return StoreDishesItem();
+            return StoreDishesItem(categories[index]);
           }),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:e_commerce_flutter/models/restaurant/option_dishes.dart';
+import 'package:built_collection/built_collection.dart';
 
 part 'menu.g.dart';
 
@@ -11,21 +12,25 @@ abstract class Menu implements Built<Menu, MenuBuilder> {
 
   String get description;
 
-  String get basePrice;
+  double get basePrice;
 
-  List<String> get tags;
+  BuiltList<String> get tags;
 
-  List<String> get ingredient;
+  BuiltList<String> get ingredient;
 
-  String get preparationTime;
+  int get preparationTime;
 
-  String get rating;
+  int get rating;
 
-  String get avgDelivery;
+  int get avgDelivery;
 
-  List<String> get dishImages;
+  @nullable
+  BuiltList<String> get dishImages;
 
+/*
+  @nullable
   OptionDishes get optionDishes;
+*/
 
   Menu._();
 
